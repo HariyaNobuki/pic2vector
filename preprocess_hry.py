@@ -7,35 +7,20 @@ import os , sys
 from glob import glob
 from PIL import Image
 
+from keras.preprocessing.image import load_img, save_img, img_to_array, array_to_img
 
-def resize_images(images_dir, image_save_dir, image_size):
 
-    os.makedirs(image_save_dir, exist_ok=True)
+def resize_images(image_path, image_save_dir, image_size):
+    img = load_img(image_path, grayscale=False, color_mode='rgb', target_size=(224,224))
+    a=0
 
-    img_paths = glob(os.path.join(images_dir, '*.jpg'))
 
-    for img_path in img_paths:
-        # resize
-        image = Image.open(img_path)
-        rgb_im = image.convert('RGB')
-        rgb_im.thumbnail([image_size,image_size])
-
-        # make background
-        back_ground = Image.new("RGB", (image_size,image_size), color=(255,255,255))
-        back_ground.paste(rgb_im)
-
-        # make path
-        save_path = os.path.join(image_save_dir, os.path.basename(img_path))
-        end_index = save_path.rfind('.')
-        save_path = save_path[0:end_index]+'.jpg'
-        print('save',save_path)
-        back_ground.save(save_path,quality=95,format='JPEG')
 
 
 def _main():
-    images_dir = cnf.getppath + '/_yolofig'  # input directory
+    images_dir = 'sign/sana.png'  # input directory
     image_save_dir = 'resize_image/'  # output directory
-    image_size = 640                    # ここはどうにか後で変えようかな？
+    image_size = 100                    # ここはどうにか後で変えようかな？
     if len(sys.argv) > 1:
         image_size = int(sys.argv[1])
 
