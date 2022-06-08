@@ -8,7 +8,7 @@ import cv2
 from keras.preprocessing.image import load_img, save_img, img_to_array, array_to_img
 
 target_size = [112,224,248,1404]
-images_dir = 'sign/taisei.bmp'  # input directory
+images_dir = 'sign/sana.png'  # input directory
 image_save_dir = 'resize_image/'  # output directory
 os.makedirs(image_save_dir,exist_ok=True)
 
